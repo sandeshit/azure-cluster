@@ -28,3 +28,18 @@ provider "azurerm" {
 
   subscription_id = var.subscription_id
 }
+
+# No race condition when configuring Helm provider using AKS module outputs in same Terraform run. 
+# Terraform builds a dependency graph first, 
+# Detects provider depends on module.aks, 
+# Ensures the AKS cluster is created before initializing the Helm provider and applying Helm resources.
+provider "helm" {
+  kubernetes = {
+    host                   = module.aks.host
+    username               = module.aks.cluster_username
+    password               = module.aks.cluster_password
+    client_certificate     = base64decode(module.aks.client_certificate)
+    client_key             = base64decode(module.aks.client_key)
+    cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
+  }
+}

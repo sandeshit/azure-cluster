@@ -10,3 +10,9 @@ module "acr" {
   resource_group_name = module.rg.resource_group_name
   location            = module.rg.resource_group_location
 }
+
+module "dns_zone" {
+  source              = "../../modules/dns_zone"
+  zone_name         = "learning.togglecorp.com"
+  resource_group_name = module.rg.resource_group_name
+}

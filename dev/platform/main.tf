@@ -30,3 +30,10 @@ module "argocd" {
     cluster_ca_certificate = module.aks.cluster_ca_certificate
   }
 }
+
+module "dns_record" {
+  source = "../../modules/dns_record"
+  resource_group_name = data.terraform_remote_state.core.outputs.resource_group_name
+  zone_name = data.terraform_remote_state.core.outputs.zone_name
+  cname_record_target = module.aks.aks_ingress_fqdn
+}

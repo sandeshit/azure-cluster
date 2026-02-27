@@ -13,6 +13,6 @@ module "acr" {
 
 module "dns_zone" {
   source              = "../../modules/dns_zone"
-  zone_name         = "learning.togglecorp.com"
+  zone_name         = "azure.learn.togglecorp.com"
   resource_group_name = module.rg.resource_group_name
 }

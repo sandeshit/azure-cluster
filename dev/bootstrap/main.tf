@@ -21,3 +21,9 @@ resource "azurerm_storage_container" "tfstate" {
   storage_account_id    = azurerm_storage_account.tfstate.id
   container_access_type = "private"
 }
+
+module "subscription_budget" {
+  source = "../../modules/budget"
+  subscription_name  = "togglebudget619"
+  subscription_id = var.subscription_id
+}

@@ -5,6 +5,6 @@ variable "resource_group_location" {
 }
 
 variable "resource_group_name" {
-  type = string
+  type        = string
   description = "Name of the resource group for the subscription ID."
 }

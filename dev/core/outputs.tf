@@ -1,5 +1,5 @@
 output "acr_name" {
-    value = module.acr.acr_name
+  value = module.acr.acr_name
 }
 
 output "resource_group_name" {

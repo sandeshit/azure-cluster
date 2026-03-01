@@ -1,21 +1,21 @@
 data "terraform_remote_state" "core" {
   backend = "azurerm"
   config = {
-      resource_group_name = "tfstate"
-      storage_account_name = "toggletfstate619"
-      container_name = "tfstate"
-      key = "dev-core.tfstate"
-    }
+    resource_group_name  = "tfstate"
+    storage_account_name = "toggletfstate619"
+    container_name       = "tfstate"
+    key                  = "dev-core.tfstate"
+  }
 }
 
 module "aks" {
-  source             = "../../modules/aks"
-  cluster_name       = var.cluster_name
-  cluster_dns_prefix = var.cluster_dns_prefix
-  resource_group_name = data.terraform_remote_state.core.outputs.resource_group_name
+  source                  = "../../modules/aks"
+  cluster_name            = var.cluster_name
+  cluster_dns_prefix      = var.cluster_dns_prefix
+  resource_group_name     = data.terraform_remote_state.core.outputs.resource_group_name
   resource_group_location = data.terraform_remote_state.core.outputs.resource_group_location
-  acr_name = data.terraform_remote_state.core.outputs.acr_name
-  node_count = var.node_count
+  acr_name                = data.terraform_remote_state.core.outputs.acr_name
+  node_count              = var.node_count
 }
 
 module "argocd" {
@@ -32,8 +32,8 @@ module "argocd" {
 }
 
 module "dns_record" {
-  source = "../../modules/dns_record"
+  source              = "../../modules/dns_record"
   resource_group_name = data.terraform_remote_state.core.outputs.resource_group_name
-  zone_name = data.terraform_remote_state.core.outputs.zone_name
+  zone_name           = data.terraform_remote_state.core.outputs.zone_name
   cname_record_target = module.aks.aks_ingress_fqdn
 }

@@ -1,7 +1,7 @@
 
 variable "cname_record_name" {
   type        = string
-  default = "*"
+  default     = "*"
   description = "The subdomain for the CNAME record (e.g., 'www' for www.example.com)."
 }
 
@@ -17,7 +17,7 @@ variable "cname_record_target" {
 }
 
 variable "zone_name" {
-   type = string
+  type = string
 }
 
 variable "resource_group_name" {

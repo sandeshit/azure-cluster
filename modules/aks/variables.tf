@@ -1,12 +1,12 @@
 variable "cluster_name" {
-  type = string
-  default = "toggle-cluster-619"
+  type        = string
+  default     = "toggle-cluster-619"
   description = "Name of the cluster for the subscription ID."
 }
 
 variable "cluster_dns_prefix" {
-  type = string
-  default = "dns-toggle-619"
+  type        = string
+  default     = "dns-toggle-619"
   description = "DNS prefix for the cluster"
 }
 
@@ -29,8 +29,8 @@ variable "username" {
 }
 
 variable "resource_group_name" {
-  type = string
-  default = "toggle-rg-619"
+  type        = string
+  default     = "toggle-rg-619"
   description = "Name of the resource group for the subscription ID."
 }
 
@@ -41,7 +41,7 @@ variable "resource_group_location" {
 }
 
 variable "acr_name" {
-    type = string
-    description = "Name of the acr"
-    default = "toggle-acr-619"
+  type        = string
+  description = "Name of the acr"
+  default     = "toggle-acr-619"
 }

@@ -6,5 +6,3 @@ resource "azurerm_dns_cname_record" "toggle_dns_cname" {
   ttl                 = var.cname_record_ttl
   record              = var.cname_record_target
 }
-
-

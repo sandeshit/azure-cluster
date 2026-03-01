@@ -10,8 +10,8 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>4.55.0"
     }
-     helm ={
-      source = "hashicorp/helm"
+    helm = {
+      source  = "hashicorp/helm"
       version = "3.1.1"
     }
   }
@@ -29,9 +29,9 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
-#NOTE: No race condition when configuring Helm provider using AKS module outputs in same Terraform run. 
-// Terraform builds a dependency graph first, 
-// Detects provider depends on module.aks, 
+#NOTE: No race condition when configuring Helm provider using AKS module outputs in same Terraform run.
+// Terraform builds a dependency graph first,
+// Detects provider depends on module.aks,
 // Ensures the AKS cluster is created before initializing the Helm provider and applying Helm resources.
 provider "helm" {
   kubernetes = {

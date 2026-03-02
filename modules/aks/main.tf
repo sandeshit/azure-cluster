@@ -12,11 +12,19 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     name       = "agentpool"
     vm_size    = "Standard_D2_v2"
     node_count = var.node_count
+    vnet_subnet_id = var.vnet_subnet_id
   }
   network_profile {
-    network_plugin    = "kubenet"
+    network_plugin    = "azure"          # Azure CNI for VNet integration
     load_balancer_sku = "standard"
+    service_cidr      = var.service_cidr
+    dns_service_ip    = var.dns_service_ip
   }
+
+# NOTE: see the official documentation for why this is done.
+  ingress_application_gateway {
+    gateway_id = var.gateway_id  
+    }
    tags = {
     Environment = "Production"
   }
@@ -32,4 +40,16 @@ resource "azurerm_role_assignment" "example" {
   role_definition_name             = "AcrPull"
   scope                            = data.azurerm_container_registry.acr.id
   skip_service_principal_aad_check = true
+}
+
+resource "azurerm_role_assignment" "agic_contributor" {
+  principal_id   = azurerm_kubernetes_cluster.k8s.identity[0].principal_id
+  role_definition_name = "Contributor"
+  scope          = var.gateway_id
+}
+
+resource "azurerm_role_assignment" "agic_reader" {
+  principal_id   = azurerm_kubernetes_cluster.k8s.identity[0].principal_id
+  role_definition_name = "Reader"
+  scope          = var.resource_group_id
 }

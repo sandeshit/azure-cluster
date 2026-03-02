@@ -17,3 +17,7 @@ output "zone_name" {
 output "name_servers" {
   value = module.dns_zone.name_servers
 }
+
+output "resource_group_id" {
+  value = module.rg.rg_id
+}

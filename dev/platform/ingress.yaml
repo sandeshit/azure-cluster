@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-ingress
+  namespace: default
+spec:
+  ingressClassName: azure-application-gateway
+  rules:
+    - host: test.azure.learn.togglecorp.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello
+                port:
+                  number: 80
+
+# TODO: move this to README.md.
+
+# Commands for role assignment.
+# 1. az role assignment create   --role Reader   --scope /subscriptions/<<subscription-id>>/resourceGroups/<<rg-name>>   --assignee-object-id <<principal-id>> (Confirm this)
+# 2. az role assignment create   --role Contributor   --scope /subscriptions/<<subscription-id>>/resourceGroups/<<rg-name>>/providers/Microsoft.Network/applicationGateways/<<ag-name>>   --assignee-object-id <<principal-id>>
+# 3. az role assignment create   --role "Network Contributor"   --scope /subscriptions/<<subscription-id>>/resourceGroups/<<rg-name>>/providers/Microsoft.Network/virtualNetworks/<<vnet-name>>/subnets/<<subnet-name>>   --assignee-object-id <<principal-id>>
+
+# Sample deployment.
+# 1. k create deployment hello --image=nginx
+# 2. k expose deployment hello --port=80
+# 3. k apply -f ingress.yaml
+
+# Test
+# curl -H "Host: test.azure.learn.togglecorp.com" <<public-ip>>

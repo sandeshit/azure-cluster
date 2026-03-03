@@ -45,3 +45,24 @@ variable "acr_name" {
     description = "Name of the acr"
     default = "toggle-acr-619"
 }
+
+variable "service_cidr" {
+  type = string 
+}
+
+variable "dns_service_ip" {
+  type = string
+}
+
+variable "vnet_subnet_id" {
+  type = string
+  
+}
+
+variable "gateway_id" {
+  type = string
+}
+
+variable "resource_group_id" {
+  type = string
+}
